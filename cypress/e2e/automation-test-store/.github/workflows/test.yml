@@ -9,12 +9,26 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
           node-version: 18
 
-      - run: npm install
+      - name: Install dependencies
+        run: npm ci
 
-      - run: npx cypress run
+      - name: Run Cypress tests
+        run: npx cypress run
+
+      #lưu screenshot/video khi fail
+      - name: Upload Cypress artifacts (on failure)
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cypress-artifacts
+          path: |
+            cypress/screenshots
+            cypress/videos

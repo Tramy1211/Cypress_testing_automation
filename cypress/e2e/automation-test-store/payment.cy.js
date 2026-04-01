@@ -6,21 +6,22 @@ describe("Payment Test", () => {
     beforeEach(() => {
         cy.visit("/");
         cy.wait(2000); // cần cho CI
+        cy.closePopupIfExists();
         // Click on the product and add to cart
-        cy.get('.item37919284', { timeout: 10000 }).find('a').first().click();
+        cy.get('.item', { timeout: 10000 }).first().click();
         //cy.get('[data-psids="37919026"] > span').click();
         cy.get('#addPayNow').click();
     });
     context('Valid Credentials', () => {
         it('TC01: Should payment with valid credentials', () => {
             const { name, mobile, email, address, city, district, note } = testCases[0];
-            cy.get('#customerName', { timeout: 10000 }).type(name);
-            cy.get('#customerMobile', { timeout: 10000 }).type(mobile);
-            cy.get('#customerEmail', { timeout: 10000 }).type(email);
-            cy.get('#customerAddress', { timeout: 10000 }).type(address);
-            cy.get('#customerCityId').select(city);
-            cy.get('#customerDistrictId').select(district);
-            cy.get('#description', { timeout: 10000 }).type(note);
+            cy.get('#customerName', { timeout: 10000 }).typeText(name);
+            cy.get('#customerMobile', { timeout: 10000 }).typeText(mobile);
+            cy.get('#customerEmail', { timeout: 10000 }).typeText(email);
+            cy.get('#customerAddress', { timeout: 10000 }).typeText(address);
+            cy.get('#customerCityId', { timeout: 10000 }).select(city);
+            cy.get('#customerDistrictId', { timeout: 10000 }).select(district);
+            cy.get('#description', { timeout: 10000 }).typeText(note);
             cy.get('.col-right > .form-check > .form-check-label > .form-check-input').check();
             //cy.get('#coupon').type(coupon);
             //cy.get('#getCoupon').click();
@@ -32,12 +33,12 @@ describe("Payment Test", () => {
     context('Invalid Credentials', () => {
         it('TC04: Should not payment with invalid mobile (less than 3 numbers )', () => {
             const { name, mobile, email, address, city, district, note } = testCases[3];
-            cy.get('#customerName', { timeout: 10000 }).type(name);
-            cy.get('#customerMobile', { timeout: 10000 }).type(mobile);
-            cy.get('#customerEmail', { timeout: 10000 }).type(email);
-            cy.get('#customerAddress', { timeout: 10000 }).type(address);
-            cy.get('#customerCityId').select(city);
-            cy.get('#customerDistrictId').select(district);
+            cy.get('#customerName', { timeout: 10000 }).typeText(name);
+            cy.get('#customerMobile', { timeout: 10000 }).typeText(mobile);
+            cy.get('#customerEmail', { timeout: 10000 }).typeText(email);
+            cy.get('#customerAddress', { timeout: 10000 }).typeText(address);
+            cy.get('#customerCityId', { timeout: 10000 }).select(city);
+            cy.get('#customerDistrictId', { timeout: 10000 }).select(district);
             cy.get('#description', { timeout: 10000 }).type(note);
             cy.get('.col-right > .form-check > .form-check-label > .form-check-input').check();
             cy.get('#js-btn-submit').click();
@@ -46,13 +47,13 @@ describe("Payment Test", () => {
         });
         it('TC05: Should not payment with invalid mobile (special characters)', () => {
             const { name, mobile, email, address, city, district, note } = testCases[4];
-            cy.get('#customerName', { timeout: 10000 }).type(name);
-            cy.get('#customerMobile', { timeout: 10000 }).type(mobile);
-            cy.get('#customerEmail', { timeout: 10000 }).type(email);
-            cy.get('#customerAddress', { timeout: 10000 }).type(address);
-            cy.get('#customerCityId').select(city);
-            cy.get('#customerDistrictId').select(district);
-            cy.get('#description', { timeout: 10000 }).type(note);
+            cy.get('#customerName', { timeout: 10000 }).typeText(name);
+            cy.get('#customerMobile', { timeout: 10000 }).typeText(mobile);
+            cy.get('#customerEmail', { timeout: 10000 }).typeText(email);
+            cy.get('#customerAddress', { timeout: 10000 }).typeText(address);
+            cy.get('#customerCityId', { timeout: 10000 }).select(city);
+            cy.get('#customerDistrictId', { timeout: 10000 }).select(district);
+            cy.get('#description', { timeout: 10000 }).typeText(note);
             cy.get('.col-right > .form-check > .form-check-label > .form-check-input').check();
             cy.get('#js-btn-submit').click();
             cy.get('.formErrorContent').should('contain', 'Số điện thoại sai');
@@ -60,13 +61,13 @@ describe("Payment Test", () => {
         });
         it('TC17: Should not payment with no consent policy', () => {
             const { name, mobile, email, address, city, district, note } = testCases[6];
-            cy.get('#customerName', { timeout: 10000 }).type(name);
-            cy.get('#customerMobile', { timeout: 10000 }).type(mobile);
-            cy.get('#customerEmail', { timeout: 10000 }).type(email);
-            cy.get('#customerAddress', { timeout: 10000 }).type(address);
-            cy.get('#customerCityId').select(city);
-            cy.get('#customerDistrictId').select(district);
-            cy.get('#description', { timeout: 10000 }).type(note);
+            cy.get('#customerName', { timeout: 10000 }).typeText(name);
+            cy.get('#customerMobile', { timeout: 10000 }).typeText(mobile);
+            cy.get('#customerEmail', { timeout: 10000 }).typeText(email);
+            cy.get('#customerAddress', { timeout: 10000 }).typeText(address);
+            cy.get('#customerCityId', { timeout: 10000 }).select(city);
+            cy.get('#customerDistrictId', { timeout: 10000 }).select(district);
+            cy.get('#description', { timeout: 10000 }).typeText(note);
             cy.get('#js-btn-submit').click();
             cy.get('#mss-confirm > .alert').should('contain', 'Bạn chưa đồng ý điều khoản của chúng tôi');
             cy.log('Payment failed');
@@ -75,12 +76,12 @@ describe("Payment Test", () => {
     context('Empty Fields', () => {
         it('TC02: Should not payment with empty name', () => {
             const { name, mobile, email, address, city, district, note } = testCases[1];
-            cy.get('#customerMobile', { timeout: 10000 }).type(mobile);
-            cy.get('#customerEmail', { timeout: 10000 }).type(email);
-            cy.get('#customerAddress', { timeout: 10000 }).type(address);
-            cy.get('#customerCityId').select(city);
-            cy.get('#customerDistrictId').select(district);
-            cy.get('#description', { timeout: 10000 }).type(note);
+            cy.get('#customerMobile', { timeout: 10000 }).typeText(mobile);
+            cy.get('#customerEmail', { timeout: 10000 }).typeText(email);
+            cy.get('#customerAddress', { timeout: 10000 }).typeText(address);
+            cy.get('#customerCityId', { timeout: 10000 }).select(city);
+            cy.get('#customerDistrictId', { timeout: 10000 }).select(district);
+            cy.get('#description', { timeout: 10000 }).typeText(note);
             cy.get('.col-right > .form-check > .form-check-label > .form-check-input').check();
             cy.get('#js-btn-submit').click();
             cy.get('.formErrorContent').should('contain', 'Trường này bắt buộc');
@@ -89,12 +90,12 @@ describe("Payment Test", () => {
         });
         it('TC03: Should not payment with empty mobile', () => {
             const { name, mobile, email, address, city, district, note } = testCases[2];
-            cy.get('#customerName', { timeout: 10000 }).type(name);
-            cy.get('#customerEmail', { timeout: 10000 }).type(email);
-            cy.get('#customerAddress', { timeout: 10000 }).type(address);
-            cy.get('#customerCityId').select(city);
-            cy.get('#customerDistrictId').select(district);
-            cy.get('#description', { timeout: 10000 }).type(note);
+            cy.get('#customerName', { timeout: 10000 }).typeText(name);
+            cy.get('#customerEmail', { timeout: 10000 }).typeText(email);
+            cy.get('#customerAddress', { timeout: 10000 }).typeText(address);
+            cy.get('#customerCityId', { timeout: 10000 }).select(city);
+            cy.get('#customerDistrictId', { timeout: 10000 }).select(district);
+            cy.get('#description', { timeout: 10000 }).typeText(note);
             cy.get('.col-right > .form-check > .form-check-label > .form-check-input').check();
             cy.get('#js-btn-submit').click();
             cy.get('.formErrorContent').should('contain', 'Trường này bắt buộc');
@@ -102,12 +103,12 @@ describe("Payment Test", () => {
         });
         it('TC012: Should not payment with empty district', () => {
             const { name, mobile, email, address, city, district, note } = testCases[5];
-            cy.get('#customerName', { timeout: 10000 }).type(name);
-            cy.get('#customerMobile', { timeout: 10000 }).type(mobile);
-            cy.get('#customerEmail', { timeout: 10000 }).type(email);
-            cy.get('#customerAddress', { timeout: 10000 }).type(address);
-            cy.get('#customerCityId').select(city);
-            cy.get('#description', { timeout: 10000 }).type(note);
+            cy.get('#customerName', { timeout: 10000 }).typeText(name);
+            cy.get('#customerMobile', { timeout: 10000 }).typeText(mobile);
+            cy.get('#customerEmail', { timeout: 10000 }).typeText(email);
+            cy.get('#customerAddress', { timeout: 10000 }).typeText(address);
+            cy.get('#customerCityId', { timeout: 10000 }).select(city);
+            cy.get('#description', { timeout: 10000 }).typeText(note);
             cy.get('.col-right > .form-check > .form-check-label > .form-check-input').check();
             cy.get('#js-btn-submit').click();
             cy.get('.formErrorContent').should('contain', 'Trường này bắt buộc');
