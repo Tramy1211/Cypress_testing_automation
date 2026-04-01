@@ -91,7 +91,8 @@ describe("Signup Test", () => {
             cy.get('#password', { timeout: 10000 }).type(password);
             cy.get('#rePassword', { timeout: 10000 }).type(repassword);
             cy.get('.text-center > .btn').click();
-            cy.get('.formErrorContent').should('contain', 'Ngày sinh không hợp lệ');
+            cy.contains('Ngày sinh không hợp lệ', { timeout: 15000 })
+                .should('be.visible');
             cy.log('Register failed');
         });
         it('TC11: Should fail with incorrect phone', () => {

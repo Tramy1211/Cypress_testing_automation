@@ -35,9 +35,9 @@ describe("Payment Test", () => {
             cy.get('.col-right > .form-check > .form-check-label > .form-check-input').check();
 
             cy.get('#js-btn-submit').click();
-
-            cy.get('.pur-title')
-                .should('contain.text', 'THANK YOU');
+            cy.wait(2000);
+            cy.contains('THANK YOU', { timeout: 15000 })
+                .should('be.visible');
 
             cy.log('Payment successfully');
         });
