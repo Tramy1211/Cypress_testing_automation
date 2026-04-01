@@ -4,6 +4,7 @@ import { testCases } from './Data_register.js';  // Adjust the path as necessary
 describe("Signup Test", () => {
     beforeEach(() => {
         cy.visit("https://moji.vn/");
+        cy.wait(2000); // cần cho CI
         cy.get('body').then(($body) => {
             if ($body.find('#popupHome').length) {
                 cy.get('#popupHome .close > span').click();

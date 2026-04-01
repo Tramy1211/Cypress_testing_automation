@@ -4,7 +4,7 @@ import { testCases } from './Data_payment.js';
 describe("Payment Test", () => {
     beforeEach(() => {
         cy.visit("https://moji.vn/");
-
+        cy.wait(2000); // cần cho CI
         // Click on the product and add to cart
         cy.get('.item37919284 > .image > a > .lazyautosizes').click();
         //cy.get('[data-psids="37919026"] > span').click();
