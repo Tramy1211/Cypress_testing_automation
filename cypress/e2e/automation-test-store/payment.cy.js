@@ -10,10 +10,7 @@ describe("Payment Test", () => {
 
         cy.get('body', { timeout: 10000 }).should('be.visible');
 
-        cy.get('.item', { timeout: 15000 })
-        .should('have.length.greaterThan', 0)
-        .first()
-        .click();
+        cy.get('.product-item img', { timeout: 15000 }).eq(0).click();
 
         cy.get('#addPayNow', { timeout: 15000 })
         .should('be.visible')
