@@ -55,7 +55,7 @@ export const testCases = [
     //TC07
     username: "Password1",
     fullname: "Password1",
-    DOB: "2025-12-23",
+    DOB: "2050-12-23",
     phone: "00000",
     email: "nnn1w@gmail.com",
     city: "Hà Nội",
