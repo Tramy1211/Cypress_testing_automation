@@ -37,9 +37,3 @@ Cypress.Commands.add('closePopupIfExists', () => {
     }
   });
 });
-Cypress.Commands.add('typeText', (selector, text) => {
-  cy.get(selector, { timeout: 10000 })
-    .should('be.visible')
-    .clear()
-    .type(text);
-});
