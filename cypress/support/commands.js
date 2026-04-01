@@ -23,3 +23,17 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+Cypress.Commands.add('closePopupIfExists', () => {
+  cy.get('body').then(($body) => {
+    if ($body.find('#popupHome').length > 0) {
+      cy.get('#popupHome')
+        .then(($popup) => {
+          if ($popup.is(':visible')) {
+            cy.wrap($popup)
+              .find('.close > span')
+              .click({ force: true });
+          }
+        });
+    }
+  });
+});
