@@ -13,25 +13,17 @@ describe("Payment Test", () => {
         cy.get('.product-item img', { timeout: 15000 }).eq(0).click();
 
         cy.get('#addPayNow', { timeout: 15000 })
-        .should('be.visible')
-        .click();
+            .should('be.visible')
+            .click();
     });
     context('Valid Credentials', () => {
         it('TC01: Should payment with valid credentials', () => {
-            const { name, mobile, email, address, city, district, note } = testCases[0];
-            cy.get('#customerName', { timeout: 10000 }).typeText(name);
-            cy.get('#customerMobile', { timeout: 10000 }).typeText(mobile);
-            cy.get('#customerEmail', { timeout: 10000 }).typeText(email);
-            cy.get('#customerAddress', { timeout: 10000 }).typeText(address);
-            cy.get('#customerCityId', { timeout: 10000 }).select(city);
-            cy.get('#customerDistrictId', { timeout: 10000 }).select(district);
-            cy.get('#description', { timeout: 10000 }).typeText(note);
-            cy.get('.col-right > .form-check > .form-check-label > .form-check-input').check();
-            //cy.get('#coupon').type(coupon);
-            //cy.get('#getCoupon').click();
+            fillPaymentForm(testCases[0]);
+
+            cy.get('.col-right input[type="checkbox"]').check();
             cy.get('#js-btn-submit').click();
+
             cy.get('.pur-title').should('contain.text', 'THANK YOU');
-            cy.log('Payment successfully');
         });
     });
     context('Invalid Credentials', () => {
@@ -120,3 +112,12 @@ describe("Payment Test", () => {
         });
     });
 });
+function fillPaymentForm(data) {
+    cy.get('#customerName', { timeout: 10000 }).typeText(data.name);
+    cy.get('#customerMobile', { timeout: 10000 }).typeText(data.mobile);
+    cy.get('#customerEmail', { timeout: 10000 }).typeText(data.email);
+    cy.get('#customerAddress', { timeout: 10000 }).typeText(data.address);
+    cy.get('#customerCityId', { timeout: 10000 }).select(data.city);
+    cy.get('#customerDistrictId', { timeout: 10000 }).select(data.district);
+    cy.get('#description', { timeout: 10000 }).typeText(data.note);
+}

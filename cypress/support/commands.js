@@ -43,7 +43,3 @@ Cypress.Commands.add('typeText', (selector, text) => {
     .clear()
     .type(text);
 });
-
-Cypress.Commands.add('blurField', (selector) => {
-  cy.get(selector).blur();
-});
