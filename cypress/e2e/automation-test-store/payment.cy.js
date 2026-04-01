@@ -5,12 +5,19 @@ import { testCases } from './Data_payment.js';
 describe("Payment Test", () => {
     beforeEach(() => {
         cy.visit("/");
-        cy.wait(2000); // cần cho CI
+
         cy.closePopupIfExists();
-        // Click on the product and add to cart
-        cy.get('.item', { timeout: 10000 }).first().click();
-        //cy.get('[data-psids="37919026"] > span').click();
-        cy.get('#addPayNow').click();
+
+        cy.get('body', { timeout: 10000 }).should('be.visible');
+
+        cy.get('.item', { timeout: 15000 })
+        .should('have.length.greaterThan', 0)
+        .first()
+        .click();
+
+        cy.get('#addPayNow', { timeout: 15000 })
+        .should('be.visible')
+        .click();
     });
     context('Valid Credentials', () => {
         it('TC01: Should payment with valid credentials', () => {

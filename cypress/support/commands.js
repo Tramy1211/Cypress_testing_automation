@@ -41,6 +41,9 @@ Cypress.Commands.add('typeText', (selector, text) => {
   cy.get(selector, { timeout: 10000 })
     .should('be.visible')
     .clear()
-    .type(text)
-    .blur();
+    .type(text);
+});
+
+Cypress.Commands.add('blurField', (selector) => {
+  cy.get(selector).blur();
 });
