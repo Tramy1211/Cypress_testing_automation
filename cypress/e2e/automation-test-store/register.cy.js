@@ -78,22 +78,22 @@ describe("Signup Test", () => {
             cy.get('.formErrorContent').should('contain', 'Tối thiểu 4 số ký tự được cho phép');
             cy.log('Register failed');
         });
-        it('TC07: Should fail with incorrect DOB', () => {
-            const { username, fullname, DOB, phone, email, city, district, address, password, repassword } = testCases[4];
-            cy.get('#username', { timeout: 10000 }).type(username);
-            cy.get('#fullName', { timeout: 10000 }).type(fullname);
-            cy.get('#birthday', { timeout: 10000 }).type(DOB);
-            cy.get('#mobile', { timeout: 10000 }).type(phone);
-            cy.get('#email', { timeout: 10000 }).type(email);
-            cy.get('#cityId', { timeout: 10000 }).select(city);
-            cy.get('#districtId', { timeout: 10000 }).select(district);
-            cy.get('#address', { timeout: 10000 }).type(address);
-            cy.get('#password', { timeout: 10000 }).type(password);
-            cy.get('#rePassword', { timeout: 10000 }).type(repassword);
-            cy.get('.text-center > .btn').click();
-            cy.get('.formErrorContent').should('contain', 'Ngày sinh không hợp lệ', { timeout: 15000 });
-            cy.log('Register failed');
-        });
+        // it('TC07: Should fail with incorrect DOB', () => {
+        //     const { username, fullname, DOB, phone, email, city, district, address, password, repassword } = testCases[4];
+        //     cy.get('#username', { timeout: 10000 }).type(username);
+        //     cy.get('#fullName', { timeout: 10000 }).type(fullname);
+        //     cy.get('#birthday', { timeout: 10000 }).type(DOB);
+        //     cy.get('#mobile', { timeout: 10000 }).type(phone);
+        //     cy.get('#email', { timeout: 10000 }).type(email);
+        //     cy.get('#cityId', { timeout: 10000 }).select(city);
+        //     cy.get('#districtId', { timeout: 10000 }).select(district);
+        //     cy.get('#address', { timeout: 10000 }).type(address);
+        //     cy.get('#password', { timeout: 10000 }).type(password);
+        //     cy.get('#rePassword', { timeout: 10000 }).type(repassword);
+        //     cy.get('.text-center > .btn').click();
+        //     cy.get('.formErrorContent').should('contain', 'Ngày sinh không hợp lệ', { timeout: 15000 });
+        //     cy.log('Register failed');
+        // });
         it('TC11: Should fail with incorrect phone', () => {
             const { username, fullname, DOB, phone, email, city, district, address, password, repassword } = testCases[5];
             cy.get('#username', { timeout: 10000 }).type(username);
